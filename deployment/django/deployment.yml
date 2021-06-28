@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airsel-rfid-api-prod-deployment
+  labels:
+    app: airsel-rfid-api-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: airsel-rfid-api-prod
+  template:
+    metadata:
+      labels:
+        app: airsel-rfid-api-prod
+    spec:
+      containers:
+      - name: airsel-rfid-api-prod
+        image: yusliadi/airsel-rfid-api-prod:1.0.7 #version boleh tukar
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        envFrom:
+          - secretRef:
+              name: airsel-rfid-api-prod-secret

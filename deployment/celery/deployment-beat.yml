@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airsel-rfid-api-celery-beat-prod
+  labels:
+    deployment: airsel-rfid-api-celery-beat-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod: airsel-rfid-api-celery-beat-prod
+  template:
+    metadata:
+      labels:
+        pod: airsel-rfid-api-celery-beat-prod
+    spec:
+      containers:
+        - name: airsel-rfid-api-celery-beat-prod
+          image: yusliadi/airsel-rfid-api
+          # celery -A airsel-rfidapi beat -l debug
+          command: ['celery', '-A', 'core', 'beat', '-l', 'debug']
+          envFrom:
+            - secretRef:
+                name: airsel-rfid-api-secret-prod

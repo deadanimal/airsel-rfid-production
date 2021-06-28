@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: airsel-rfid-my-ingress-prod
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "airsel-rfid-my-prod-final"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "1800"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
+    nginx.ingress.kubernetes.io/proxy-body-size: "20mb"
+spec:
+  tls:
+  - hosts:
+    - airsel-rfid.pipe.my
+    - airsel-rfid-api-prod.pipe.my
+
+    secretName: airsel-rfid-my-prod-final
+
+  rules:
+  - host: airsel-rfid-api-prod.pipe.my
+    http:
+      paths:
+      - backend:
+          serviceName: airsel-rfid-api-prod
+          servicePort: 5000    
+  - host: airsel-rfid.pipe.my
+    http:
+      paths:
+      - backend:
+          serviceName: airsel-rfid-webapp-prod
+          servicePort: 80    

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: airsel-rfid-api-redis-service-prod
+spec:
+  selector:
+    pod: airsel-rfid-api-redis-prod
+  ports:
+  - protocol: TCP
+    port: 6379
+    targetPort: 6379

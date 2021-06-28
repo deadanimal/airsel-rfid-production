@@ -1,0 +1,16 @@
+{% autoescape off %}
+Hi new user,
+
+Hereby is your login credentials
+
+username: {{ username }}
+password: {{ password }}
+
+Thank you for registering with us. Before logging in, please click on the following link to complete your registration.
+
+{{ url }}
+
+Thank you.
+
+[This is an automated message please do not reply]
+{% endautoescape %}

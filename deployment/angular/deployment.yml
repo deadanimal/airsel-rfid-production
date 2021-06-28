@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    name: airsel-rfid-webapp-prod
+  name: airsel-rfid-webapp-prod
+spec:
+  progressDeadlineSeconds: 2147483647
+  replicas: 1
+  selector:
+    matchLabels:
+      app: airsel-rfid-webapp-prod
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: airsel-rfid-webapp-prod
+    spec:
+      containers:
+      - image: yusliadi/airsel-rfid-webapp-prod:1.1.11
+        imagePullPolicy: Always   
+        name: airsel-rfid-webapp-prod
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
